@@ -24,7 +24,7 @@ extend({ VisualizerMaterial });
 
 function Scene() {
   const materialRef = useRef<VisualizerMaterialImpl>(null);
-  const { viewport } = useThree();
+  const { viewport, pointer } = useThree();
 
   useFrame((state) => {
     if (materialRef.current?.uniforms) {
@@ -33,6 +33,7 @@ function Scene() {
         state.size.width * viewport.dpr,
         state.size.height * viewport.dpr
       );
+      materialRef.current.uniforms.mousePosition.value.set(pointer.x, pointer.y);
     }
   });
 
